@@ -1,0 +1,32 @@
+services:
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql_server
+    restart: always
+    ports:
+     - "3310:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
+      # MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      # MYSQL_USER: ${MYSQL_USER}
+      # MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+     - mysql_data:/var/lib/mysql
+
+  music-service:
+    build:
+      context: ./music-service
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./music-service:/app
+    environment:
+      MYSQL_DB_CONN: ${MYSQL_DB_CONN}
+    depends_on:
+      - mysql-db
+    command: air -c air.toml
+
+volumes:
+  mysql_data:
