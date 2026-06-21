@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/Wenev/contracts/galactus-service/proto";
+
+message User {
+    uint64 id = 1;
+    string name = 2;
+    string email = 3;
+}
+
+message GetUserByIDRequest {
+    uint64 id = 1;
+}
+
+message CreateUserRequest {
+    string name = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message UpdateUserRequest {
+    uint64 id = 1;
+    string name = 2;
+    string email = 3;
+    string password = 4;
+}
+
+message DeleteUserRequest {
+    uint64 id = 1;
+}
+
+message UserResponse {
+    User user = 1;
+    string message = 2;
+}
+message GetUsersResponse {
+    repeated User users = 1;
+    string message = 2;
+}
+
+message DeleteUserResponse {
+    string message = 1;
+}

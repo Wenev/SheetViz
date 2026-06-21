@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/Wenev/contracts/galactus-service/proto";
+import "google/protobuf/empty.proto";
+import "user_dto.proto";
+
+service GalactusService {
+    rpc GetUserByID (GetUserByIDRequest) returns (UserResponse);
+    rpc GetUsers (google.protobuf.Empty) returns (GetUsersResponse);
+    rpc UpdateUser (UpdateUserRequest) returns (UserResponse);
+    rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+}
